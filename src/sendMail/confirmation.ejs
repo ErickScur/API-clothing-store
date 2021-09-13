@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .ii a[href] {
+            color: #ffff;
+        }
+        .container{
+            width: 100%;
+        }
+        .btn{
+            font-size: 20px;
+            background-color: blue;
+            color: white!important;
+            text-decoration: none!important;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 600ms;
+        }
+        h1{
+            font-size: 30px;
+        }
+        .reset{
+            margin: 0px!important;
+            padding: 0px!important;
+        }
+        .btn:hover{
+            background-color: rgb(183, 0, 255);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to our Store</h1>
+        <p>Hello <strong><%= name %>!</strong> Thanks for signing up with our store! You must follow this link to activate your account:</p>
+        <a class="btn" href="http://localhost:8080/confirm/<%= uuid %>">Verify your email now</a>
+        <br>
+        <br>
+        <p class="reset">You can also copy and paste the following link into your browser to confirm your email:</p>
+        <h3 class="reset">http://localhost:8080/confirm/<%= uuid %></h3>
+    </div>
+</body>
+</html>
