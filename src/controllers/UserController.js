@@ -7,7 +7,6 @@ const {
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const sendMail = require('../sendMail/sendMail');
-
 module.exports = {
     async index(req,res){
         let HATEOAS = [
@@ -63,7 +62,7 @@ module.exports = {
                 res.status(200);
                 return res.json({user,_links: HATEOAS});
             }else{
-                res.status(400);
+                res.status(403);
                 res.json({err:"Email already in use!"}); 
             }
         }else{

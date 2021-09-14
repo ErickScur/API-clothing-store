@@ -2,8 +2,9 @@ const express = require('express');
 const routes = express.Router();
 const UserController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
+const BrandController = require('./controllers/BrandController');
 
-//! Users
+//! User
 routes.get('/users', UserController.index);
 routes.get('/user/:id', UserController.show);
 routes.post('/user', UserController.store);
@@ -18,4 +19,8 @@ routes.post('/category',CategoryController.store);
 routes.put('/category/:id', CategoryController.update);
 routes.delete('/category/:id', CategoryController.destroy);
 
+//!Brand
+routes.get('/brands', BrandController.index);
+routes.post('/brand', BrandController.store);
+routes.get('/brand/:id', BrandController.show);
 module.exports = routes;

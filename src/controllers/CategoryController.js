@@ -51,11 +51,11 @@ module.exports = {
         }
     },
     async store(req,res){
-        let name = req.body.name;
+        let name = req.body.name.toUpperCase();
         if(name){
             let findCategory = await Category.findOne({where:{name:name}});
             if(findCategory){
-                res.status(400);
+                res.status(403);
                 res.json({err:"Category already exists"}); 
             }else{
                 let category = await Category.create({name:name});
