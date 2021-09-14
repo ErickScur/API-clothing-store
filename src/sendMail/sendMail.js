@@ -9,8 +9,8 @@ let transporter = nodemailer.createTransport(
         secure: true, 
         service: 'Gmail', 
         auth: { 
-            user: "your email here", 
-            pass: "your 16 digit password here" 
+            user: "your email", 
+            pass: "you 16 digit password" 
         }, 
         tls: { 
             rejectUnauthorized: false 
@@ -23,7 +23,7 @@ function sendConfirmationMail(email,uuid,name){
             console.log(err);
         }else{
             transporter.sendMail({
-                from: "Your name here <your email here>",
+                from: "your email",
                 to: email,
                 subject:"Please confirm your email!",
                 html:data

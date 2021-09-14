@@ -5,6 +5,10 @@ const Category = connection.define('category',{
     name:{
         type: Sequelize.STRING,
         allowNull : false
+    },
+    slug:{
+        type: Sequelize.STRING,
+        allowNull:false
     }
 });
 

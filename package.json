@@ -1,5 +1,5 @@
 {
-  "name": "api-cloth-store",
+  "name": "api-store",
   "version": "1.0.0",
   "description": "api for an e-commerce",
   "main": "index.js",
@@ -19,7 +19,7 @@
     "nodemailer": "^6.6.3",
     "nodemailer-smtp-transport": "^2.7.4",
     "sequelize": "^6.6.5",
+    "slugify": "^1.6.0",
     "uuid": "^8.3.2"
-  },
-  "devDependencies": {}
+  }
 }

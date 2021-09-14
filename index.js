@@ -3,7 +3,7 @@ const connection = require('./src/database/database');
 const bodyParser = require('body-parser');
 const app = express();
 const routes = require('./src/routes');
-
+const Product = require('./src/models/Product');
 connection
     .authenticate()
     .then(() => {

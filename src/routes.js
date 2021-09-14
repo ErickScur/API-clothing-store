@@ -14,7 +14,7 @@ routes.get('/confirm/:uuid', UserController.confirmMail);
 
 //!Category
 routes.get('/categories', CategoryController.index);
-routes.get('/category/:id', CategoryController.show);
+routes.get('/category/:slug', CategoryController.show);
 routes.post('/category',CategoryController.store);
 routes.put('/category/:id', CategoryController.update);
 routes.delete('/category/:id', CategoryController.destroy);
@@ -22,5 +22,7 @@ routes.delete('/category/:id', CategoryController.destroy);
 //!Brand
 routes.get('/brands', BrandController.index);
 routes.post('/brand', BrandController.store);
-routes.get('/brand/:id', BrandController.show);
+routes.get('/brand/:slug', BrandController.show);
+routes.put('/brand/:id', BrandController.update);
+routes.delete('/brand/:id', BrandController.destroy);
 module.exports = routes;
