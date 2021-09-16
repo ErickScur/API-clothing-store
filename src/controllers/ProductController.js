@@ -8,7 +8,7 @@ module.exports = {
             let findProduct = await Product.findOne({where:{name}});
             if(findProduct!=undefined){
                 res.status(403);
-                res.json({err:"Category already exists"}); 
+                res.json({err:"Product already exists"}); 
             }else{
                 let slug = slugify(name);
                 colors = colors.toString(); //HTML Checkbox form outputs is a array so I convert it into a String to store in the database

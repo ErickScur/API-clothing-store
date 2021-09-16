@@ -3,6 +3,7 @@ const routes = express.Router();
 const UserController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
 const BrandController = require('./controllers/BrandController');
+const ProductController = require('./controllers/ProductController');
 
 //! User
 routes.get('/users', UserController.index);
@@ -25,4 +26,7 @@ routes.post('/brand', BrandController.store);
 routes.get('/brand/:slug', BrandController.show);
 routes.put('/brand/:id', BrandController.update);
 routes.delete('/brand/:id', BrandController.destroy);
+
+//!Product
+routes.post('/product', ProductController.store);
 module.exports = routes;
