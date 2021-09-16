@@ -29,9 +29,12 @@ const Product = connection.define('product',{
         allowNull: false
     }
 });
+
 Product.belongsTo(Category);
 Product.belongsTo(Brand);
+
 Category.hasMany(Product);
 Brand.hasMany(Product);
+
 Product.sync({force:false}).then(()=>{});
 module.exports = Product;
