@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/product" method="post">
+        <input type="text" name="name" id=""><br>
+        <input type="number" name="price" id="">
+        <fieldset>
+            <legend>Sizes</legend>
+            <div>
+              <input type="checkbox" name="sizes" value="P">
+              <label for="P">P</label>
+            </div>
+            <div>
+              <input type="checkbox" name="sizes" value="M">
+              <label for="M">M</label>
+            </div>
+            <div>
+                <input type="checkbox" name="sizes" value="G">
+                <label for="G">G</label>
+              </div>
+          </fieldset>
+          <input type="number" name="inventory" id="">
+          <fieldset>
+            <legend>Colors</legend>
+            <div>
+              <input type="checkbox" name="colors" value="red">
+              <label for="red">red</label>
+            </div>
+            <div>
+              <input type="checkbox" name="colors" value="blue">
+              <label for="blue">blue</label>
+            </div>
+            <div>
+                <input type="checkbox" name="colors" value="green">
+                <label for="green">green</label>
+              </div>
+          </fieldset>
+          <input type="submit" value="Enviar">
+          <input type="hidden" name="categoryId" value="1">
+          <input type="hidden" name="brandId" value="1">
+    </form>
+</body>
+</html>
