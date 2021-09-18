@@ -108,34 +108,34 @@ module.exports = {
         if(name && id){
             let slug = slugify(name);
             let category = await Category.update({name:name, slug:slug},{where:{id:id}});
-            let HATEOAS = [
-                {
-                    href: "http://localhost:8080/category/"+id,
-                    method: "DELETE",
-                    rel: "delete_category"
-                },
-                {
-                    href: "http://localhost:8080/category",
-                    method: "POST",
-                    rel: "create_new_category"
-                },
-                {
-                    href: "http://localhost:8080/category/"+id,
-                    method: "PUT",
-                    rel: "update_category"
-                },
-                {
-                    href: "http://localhost:8080/category/"+slug,
-                    method: "GET",
-                    rel: "get_category"
-                },
-                {
-                    href: "http://localhost:8080/categories",
-                    method: "GET",
-                    rel: "get_all_categories"
-                }
-            ];
-            if(category != undefined){
+            if(category==1){
+                let HATEOAS = [
+                    {
+                        href: "http://localhost:8080/category/"+id,
+                        method: "DELETE",
+                        rel: "delete_category"
+                    },
+                    {
+                        href: "http://localhost:8080/category",
+                        method: "POST",
+                        rel: "create_new_category"
+                    },
+                    {
+                        href: "http://localhost:8080/category/"+id,
+                        method: "PUT",
+                        rel: "update_category"
+                    },
+                    {
+                        href: "http://localhost:8080/category/"+slug,
+                        method: "GET",
+                        rel: "get_category"
+                    },
+                    {
+                        href: "http://localhost:8080/categories",
+                        method: "GET",
+                        rel: "get_all_categories"
+                    }
+                ];
                 res.status(200);
                 return res.json({category,_links:HATEOAS});
             }else{

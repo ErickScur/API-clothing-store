@@ -119,35 +119,40 @@ module.exports = {
         if(name && cpf && email && password && phone && zipcode && state && city && street && number && complement && id){
             const user = await User.update({name,cpf,email,password,phone,zipcode,state,city,street,number,complement
             },{where:{id:id}});
-            let HATEOAS = [
-                {
-                    href: "http://localhost:8080/user/"+user.id,
-                    method: "DELETE",
-                    rel: "delete_user"
-                },
-                {
-                    href: "http://localhost:8080/user",
-                    method: "POST",
-                    rel: "create_new_user"
-                },
-                {
-                    href: "http://localhost:8080/user/"+user.id,
-                    method: "PUT",
-                    rel: "update_user"
-                },
-                {
-                    href: "http://localhost:8080/user/"+user.id,
-                    method: "GET",
-                    rel: "get_user"
-                },
-                {
-                    href: "http://localhost:8080/users",
-                    method: "GET",
-                    rel: "get_all_users"
-                }
-            ]
-            res.status(200);
-            return res.json({user,_links:HATEOAS});
+            if(user==1){
+                let HATEOAS = [
+                    {
+                        href: "http://localhost:8080/user/"+user.id,
+                        method: "DELETE",
+                        rel: "delete_user"
+                    },
+                    {
+                        href: "http://localhost:8080/user",
+                        method: "POST",
+                        rel: "create_new_user"
+                    },
+                    {
+                        href: "http://localhost:8080/user/"+user.id,
+                        method: "PUT",
+                        rel: "update_user"
+                    },
+                    {
+                        href: "http://localhost:8080/user/"+user.id,
+                        method: "GET",
+                        rel: "get_user"
+                    },
+                    {
+                        href: "http://localhost:8080/users",
+                        method: "GET",
+                        rel: "get_all_users"
+                    }
+                ]
+                res.status(200);
+                return res.json({user,_links:HATEOAS});
+            }else{
+                res.status(404);
+                return res.json({err:"404 User not found!"});
+            }
         }else{
             res.status(422);
             return res.json({err:"One or more parameters are missing!"});

@@ -104,7 +104,7 @@ module.exports={
         if(name && id){
             let slug = slugify(name);
             let brand = await Brand.update({name:name, slug:slug},{where:{id:id}});
-            if(brand){
+            if(brand==1){
                 let HATEOAS = [
                     {
                         href: "http://localhost:8080/brand/"+id,
