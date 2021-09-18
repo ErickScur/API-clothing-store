@@ -36,7 +36,7 @@ module.exports = {
                         rel: "update_category"
                     },
                     {
-                        href: "http://localhost:8080/category/"+category.slug,
+                        href: "http://localhost:8080/category/"+category.slug.toLowerCase(),
                         method: "GET",
                         rel: "get_category"
                     },
@@ -84,7 +84,7 @@ module.exports = {
                         rel: "update_category"
                     },
                     {
-                        href: "http://localhost:8080/category/"+category.slug,
+                        href: "http://localhost:8080/category/"+category.slug.toLowerCase(),
                         method: "GET",
                         rel: "get_category"
                     },
@@ -126,7 +126,7 @@ module.exports = {
                         rel: "update_category"
                     },
                     {
-                        href: "http://localhost:8080/category/"+slug,
+                        href: "http://localhost:8080/category/"+slug.toLowerCase(),
                         method: "GET",
                         rel: "get_category"
                     },

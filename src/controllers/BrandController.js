@@ -39,7 +39,7 @@ module.exports={
                         rel: "update_brand"
                     },
                     {
-                        href: "http://localhost:8080/brand/"+brand.slug,
+                        href: "http://localhost:8080/brand/"+brand.slug.toLowerCase(),
                         method: "GET",
                         rel: "get_brand"
                     },
@@ -78,7 +78,7 @@ module.exports={
                         rel: "update_brand"
                     },
                     {
-                        href: "http://localhost:8080/brand/"+brand.slug,
+                        href: "http://localhost:8080/brand/"+brand.slug.toLowerCase(),
                         method: "GET",
                         rel: "get_brand"
                     },
@@ -122,7 +122,7 @@ module.exports={
                         rel: "update_brand"
                     },
                     {
-                        href: "http://localhost:8080/brand/"+slug,
+                        href: "http://localhost:8080/brand/"+slug.toLowerCase(),
                         method: "GET",
                         rel: "get_brand"
                     },
