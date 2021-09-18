@@ -16,40 +16,45 @@ module.exports = {
     },
     async show(req,res){
         let slug = req.params.slug.toUpperCase();
-        const category = await Category.findOne({where:{slug:slug}});
-        if(category){
-            let HATEOAS = [
-                {
-                    href: "http://localhost:8080/category/"+category.id,
-                    method: "DELETE",
-                    rel: "delete_category"
-                },
-                {
-                    href: "http://localhost:8080/category",
-                    method: "POST",
-                    rel: "create_new_category"
-                },
-                {
-                    href: "http://localhost:8080/category/"+category.id,
-                    method: "PUT",
-                    rel: "update_category"
-                },
-                {
-                    href: "http://localhost:8080/category/"+category.slug,
-                    method: "GET",
-                    rel: "get_category"
-                },
-                {
-                    href: "http://localhost:8080/categories",
-                    method: "GET",
-                    rel: "get_all_categories"
-                }
-            ];
-            res.status(200);
-            return res.json({category,_links:HATEOAS});
+        if(slug){
+            const category = await Category.findOne({where:{slug:slug}});
+            if(category){
+                let HATEOAS = [
+                    {
+                        href: "http://localhost:8080/category/"+category.id,
+                        method: "DELETE",
+                        rel: "delete_category"
+                    },
+                    {
+                        href: "http://localhost:8080/category",
+                        method: "POST",
+                        rel: "create_new_category"
+                    },
+                    {
+                        href: "http://localhost:8080/category/"+category.id,
+                        method: "PUT",
+                        rel: "update_category"
+                    },
+                    {
+                        href: "http://localhost:8080/category/"+category.slug,
+                        method: "GET",
+                        rel: "get_category"
+                    },
+                    {
+                        href: "http://localhost:8080/categories",
+                        method: "GET",
+                        rel: "get_all_categories"
+                    }
+                ];
+                res.status(200);
+                return res.json({category,_links:HATEOAS});
+            }else{
+                res.status(404);
+                return res.json({err:"Category not found"});
+            }
         }else{
-            res.status(404);
-            return res.json({err:"Category not found"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async store(req,res){
@@ -93,17 +98,16 @@ module.exports = {
                 return res.json({category,_links:HATEOAS});
             }
         }else{
-            res.status(400);
-            res.json({err:"400 Bad Request!"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async update(req,res){
-        let {name} = req.body;
-        let slug = slugify(name);
+        let name = req.body.name.toUpperCase();
         let id = req.params.id;
-        if(name){
+        if(name && id){
+            let slug = slugify(name);
             let category = await Category.update({name:name, slug:slug},{where:{id:id}});
-            console.log(category);
             let HATEOAS = [
                 {
                     href: "http://localhost:8080/category/"+id,
@@ -139,14 +143,24 @@ module.exports = {
                 return res.json({err:"Category not found"});
             }
         }else{
-            res.status(400);
-            return res.json({err:"Bad Request"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async destroy(req,res){
         let id = req.params.id;
-        let category = await Category.destroy({where:{id:id}});
-        res.status(200);
-        return res.json(category);
+        if(id){
+            let category = await Category.destroy({where:{id:id}});
+            if(category){
+                res.status(200);
+                return res.json(category);
+            }else{
+                res.status(404);
+                return res.json({err:"Category not found"});
+            }
+        }else{
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
+        }
     }
 }

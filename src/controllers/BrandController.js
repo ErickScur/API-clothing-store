@@ -14,9 +14,9 @@ module.exports={
     },
     async store(req,res){
         let name = req.body.name.toUpperCase();
-        let slug = slugify(name);
-        let findBrand = await Brand.findOne({where:{name:name}});
         if(name){
+            let slug = slugify(name);
+            let findBrand = await Brand.findOne({where:{slug}});
             if(findBrand){
                 res.status(403);
                 res.json({err:"Brand already exists"}); 
@@ -52,8 +52,8 @@ module.exports={
                 return res.status(200).json({brand,_links:HATEOAS});
             }
         }else{
-            res.status(400);
-            res.json({err:"Bad request"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async show(req,res){
@@ -94,15 +94,15 @@ module.exports={
                 return res.json({err:"Brand not found"});
             }
         }else{
-            res.status(400);
-            res.json({err:"Bad request"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async update(req,res){
-        let name = req.body.name;
-        let slug = slugify(name);
+        let name = req.body.name.toUpperCase();
         let id = req.params.id;
         if(name && id){
+            let slug = slugify(name);
             let brand = await Brand.update({name:name, slug:slug},{where:{id:id}});
             if(brand){
                 let HATEOAS = [
@@ -137,13 +137,23 @@ module.exports={
                 return res.status(404).json({err:"Brand not found"})
             }
         }else{
-            return res.status(400).json({err:"Bad request"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async destroy(req,res){
         let id = req.params.id;
-        let brand = await Brand.destroy({where:{id:id}});
-        res.status(200);
-        return res.json(brand);
+        if(id){
+            let brand = await Brand.destroy({where:{id:id}});
+            if(brand){
+                res.status(200);
+                return res.json(brand);
+            }else{
+                return res.status(404).json({err:"Brand not found"})
+            }
+        }else{
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
+        }
     }
 }

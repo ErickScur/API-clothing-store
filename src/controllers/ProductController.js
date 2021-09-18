@@ -49,6 +49,9 @@ module.exports = {
             }else{
                 return res.stauts(404).json({err:"404 Product not Found!"});
             }
+        }else{
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
     },
     async store(req,res){
@@ -94,10 +97,18 @@ module.exports = {
                 res.status(200).json({product,_links:HATEOAS});
             }
         }else{
-            res.status(400);
-            res.json({err:"400 Bad Request!"});
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
         }
+    },
+    async destroy(req,res){
+        let id = req.params.id;
+        if(id){
 
+        }else{
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
+        }
     }
     
 }
