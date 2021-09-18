@@ -1,6 +1,56 @@
 const Product = require('../models/Product');
 const slugify = require('slugify');
 module.exports = {
+    async index(req,res){
+        let products = await Product.findAll({raw:true});
+        let HATEOAS = [
+            {
+                href: "http://localhost:8080/product",
+                method: "POST",
+                rel: "create_new_product"
+            }
+        ]
+        return res.status(200).json({products, _links:HATEOAS});
+    },
+    async show(req,res){
+        let slug = req.params.slug
+        if(slug){
+            slug = slug.toUpperCase();
+            let product = await Product.findOne({where:{slug}});
+            if(product){
+                let HATEOAS = [
+                    {
+                        href: "http://localhost:8080/product/"+product.id,
+                        method: "DELETE",
+                        rel: "delete_product"
+                    },
+                    {
+                        href: "http://localhost:8080/product",
+                        method: "POST",
+                        rel: "create_new_product"
+                    },
+                    {
+                        href: "http://localhost:8080/product/"+product.id,
+                        method: "PUT",
+                        rel: "update_product"
+                    },
+                    {
+                        href: "http://localhost:8080/product/"+product.slug,
+                        method: "GET",
+                        rel: "get_product"
+                    },
+                    {
+                        href: "http://localhost:8080/products",
+                        method: "GET",
+                        rel: "get_all_products"
+                    }
+                ];
+                return res.status(200).json({product, _links:HATEOAS});
+            }else{
+                return res.stauts(404).json({err:"404 Product not Found!"});
+            }
+        }
+    },
     async store(req,res){
         let { name,price,sizes,inventory,colors,categoryId,brandId } = req.body;
         if(name&&price&&sizes&&inventory&&colors&&categoryId&&brandId){
