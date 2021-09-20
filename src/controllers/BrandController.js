@@ -145,7 +145,7 @@ module.exports={
         let id = req.params.id;
         if(id){
             let brand = await Brand.destroy({where:{id:id}});
-            if(brand){
+            if(brand==1){
                 res.status(200);
                 return res.json(brand);
             }else{

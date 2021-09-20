@@ -151,7 +151,7 @@ module.exports = {
         let id = req.params.id;
         if(id){
             let category = await Category.destroy({where:{id:id}});
-            if(category){
+            if(category==1){
                 res.status(200);
                 return res.json(category);
             }else{

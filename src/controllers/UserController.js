@@ -164,7 +164,7 @@ module.exports = {
             const user = await User.destroy({
                 where:{id}
             });
-            if(user){
+            if(user==1){
                 res.status(200);
                 return res.json(user);
             }else{
