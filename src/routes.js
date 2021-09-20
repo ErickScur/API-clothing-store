@@ -31,4 +31,6 @@ routes.delete('/brand/:id', BrandController.destroy);
 routes.get('/products', ProductController.index);
 routes.post('/product', ProductController.store);
 routes.get('/product/:slug', ProductController.show);
+routes.delete('/product/:id', ProductController.destroy);
+routes.put('/product/:id', ProductController.update);
 module.exports = routes;
