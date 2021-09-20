@@ -4,7 +4,7 @@ const UserController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
 const BrandController = require('./controllers/BrandController');
 const ProductController = require('./controllers/ProductController');
-
+const storeData = require('./storeData/storeData');
 //! User
 routes.get('/users', UserController.index);
 routes.get('/user/:id', UserController.show);
@@ -33,4 +33,9 @@ routes.post('/product', ProductController.store);
 routes.get('/product/:slug', ProductController.show);
 routes.delete('/product/:id', ProductController.destroy);
 routes.put('/product/:id', ProductController.update);
+
+//!Local config
+routes.post('/updateconfigs', storeData.updateData);
+routes.get('/getconfigs', storeData.getData);
+
 module.exports = routes;
