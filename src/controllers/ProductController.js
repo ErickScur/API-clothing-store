@@ -47,7 +47,7 @@ module.exports = {
                 ];
                 return res.status(200).json({product, _links:HATEOAS});
             }else{
-                return res.stauts(404).json({err:"404 Product not Found!"});
+                return res.status(404).json({err:"404 Product not Found!"});
             }
         }else{
             res.status(422);
@@ -104,7 +104,29 @@ module.exports = {
     async destroy(req,res){
         let id = req.params.id;
         if(id){
-
+            let product = await Product.destroy({where:{id}});
+            if(product==1){
+                return res.status(200).json(product);
+            }else{
+                return res.status(404).json({err:"404 Product not found!"});
+            }
+        }else{
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
+        }
+    },
+    async update(req,res){
+        let id = req.params.id;
+        let {price,sizes,inventory,colors,categoryId,brandId } = req.body;
+        let name = req.body.name.toUpperCase();
+        if(name&&price&&sizes&&inventory&&colors&&categoryId&&brandId&&id){
+            let slug= slugify(name);
+            let product = await Product.update({name,price,sizes,inventory,colors,categoryId,brandId,slug},{where:{id}});
+            if(product==1){
+                return res.status(200).json(product);
+            }else{
+                return res.status(404).json({err:"404 Product not found!"});
+            }
         }else{
             res.status(422);
             return res.json({err:"One or more parameters are missing!"});
