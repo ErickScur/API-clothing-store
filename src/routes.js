@@ -4,7 +4,9 @@ const UserController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
 const BrandController = require('./controllers/BrandController');
 const ProductController = require('./controllers/ProductController');
+const ImageController = require('./controllers/ImageController');
 const storeData = require('./storeData/storeData');
+
 //! User
 routes.get('/users', UserController.index);
 routes.get('/user/:id', UserController.show);
@@ -29,7 +31,7 @@ routes.delete('/brand/:id', BrandController.destroy);
 
 //!Product
 routes.get('/products', ProductController.index);
-routes.post('/product', ProductController.store);
+routes.post('/product', ImageController.upload.array('files'), ProductController.store);
 routes.get('/product/:slug', ProductController.show);
 routes.delete('/product/:id', ProductController.destroy);
 routes.put('/product/:id', ProductController.update);

@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const slugify = require('slugify');
+
 module.exports = {
     async index(req,res){
         let products = await Product.findAll({raw:true});
@@ -61,7 +62,7 @@ module.exports = {
             let findProduct = await Product.findOne({where:{name}});
             if(findProduct!=undefined){
                 res.status(403);
-                res.json({err:"Product already exists"}); 
+                return res.json({err:"Product already exists"}); 
             }else{
                 let slug = slugify(name);
                 colors = colors.toString(); //HTML Checkbox form outputs is a array so I convert it into a String to store in the database
@@ -94,7 +95,7 @@ module.exports = {
                         rel: "get_all_products"
                     }
                 ];
-                res.status(200).json({product,_links:HATEOAS});
+                return res.status(200).json({product,_links:HATEOAS});
             }
         }else{
             res.status(422);
@@ -131,6 +132,10 @@ module.exports = {
             res.status(422);
             return res.json({err:"One or more parameters are missing!"});
         }
+    },
+    async findBySlug(slug){
+        console.log(slug);
+        let product = await Product.findOne({where:{slug}});
+        return product;
     }
-    
 }

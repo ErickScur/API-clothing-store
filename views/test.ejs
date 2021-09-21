@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/product" method="post">
+    <form action="/product" method="post" enctype="multipart/form-data">
         <input type="text" name="name" id=""><br>
         <input type="number" name="price" id="">
         <fieldset>
@@ -41,9 +41,13 @@
                 <label for="green">green</label>
               </div>
           </fieldset>
+          <br>
+          <input type="number" name="categoryId" value="1">
+          <input type="number" name="brandId" value="1">
+          <input type="file" name="files" multiple>
           <input type="submit" value="Enviar">
-          <input type="hidden" name="categoryId" value="1">
-          <input type="hidden" name="brandId" value="1">
+          
     </form>
+    <img src="C:\Users\royal\Desktop\Projetos\API-Cloth-Store\src\controllers/uploads/1632178975043Screenshot (1).png" alt="">
 </body>
 </html>
