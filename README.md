@@ -18,25 +18,64 @@ Returns all the products of the store
 ### Parameters:
 * None
 #### Responses:
-* Ok! 200
-    * your request was successfully accepted!
+##### Ok! 200
+Your request was successfully accepted!
+#### Response Example:
+    {
+    "products": [
+        {
+        "id": 30,
+        "name": "ADIDAS T-SHIRT",
+        "price": 4.41,
+        "sizes": "P,M",
+        "inventory": 4,
+        "colors": "red,blue",
+        "slug": "ADIDAS-T-SHIRT",
+        "createdAt": "2021-10-18T21:47:05.000Z",
+        "updatedAt": "2021-10-18T21:47:05.000Z",
+        "categoryId": 1,
+        "brandId": 1
+        },
+        {
+        "id": 31,
+        "name": "NIKE T-SHIRT",
+        "price": 4.41,
+        "sizes": "P,M",
+        "inventory": 4,
+        "colors": "red,blue",
+        "slug": "NIKE-T-SHIRT",
+        "createdAt": "2021-10-18T21:47:08.000Z",
+        "updatedAt": "2021-10-18T21:47:08.000Z",
+        "categoryId": 1,
+        "brandId": 1
+        }
+    ],
+    "_links": [
+        {
+        "href": "http://localhost:8080/product",
+        "method": "POST",
+        "rel": "create_new_product"
+        }
+    ]
+    }  
+
 
 ### GET /product
 Returns the product with the requested id
 ### Parameters:
-* id (number)
+* Id: The id of the Product
 #### Responses
-* Ok! 200
-    * your request was successfully accepted!
-* Unprocessable Entity! 422
-    * one ore more parameters are missing!
-* Not Found! 404
-    * the API did not find a product with the requested id
+##### Ok! 200
+Your request was successfully accepted.
+##### Unprocessable Entity! 422
+One ore more parameters are missing.
+##### Not Found! 404
+The API did not find a product with the requested id.
 ### POST /product
-Stores a product into the database
+Stores a product into the database.
 #### Parameters:
-* Name (string)
-* Price (number)
+* Name: The name of the Product.
+* Price: The price of the Product.
 * Sizes (string)
 * Inventory (number)
 * Colors (string)
