@@ -134,8 +134,10 @@ module.exports = {
         }
     },
     async findBySlug(slug){
+        console.log('chamou');
         console.log(slug);
-        let product = await Product.findOne({where:{slug}});
+        let product = await Product.findOne({where:{slug:slug}});
+        console.log(product);
         return product;
     }
 }

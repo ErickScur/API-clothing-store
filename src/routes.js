@@ -36,6 +36,9 @@ routes.get('/product/:slug', ProductController.show);
 routes.delete('/product/:id', ProductController.destroy);
 routes.put('/product/:id', ProductController.update);
 
+//!Images
+routes.get('/images/:productId', ImageController.getImages);
+
 //!Local config
 routes.post('/updateconfigs', storeData.updateData);
 routes.get('/getconfigs', storeData.getData);
