@@ -14,16 +14,26 @@ First you will need to have node installed on your computer.
 ## API Endpoints
 
 ### GET /products
-Return all the products of the store
+Returns all the products of the store
 ### Parameters:
 * None
 #### Responses:
 * Ok! 200
     * your request was successfully accepted!
 
-
+### GET /product
+Returns the product with the requested id
+### Parameters:
+* id (number)
+#### Responses
+* Ok! 200
+    * your request was successfully accepted!
+* Unprocessable Entity! 422
+    * one ore more parameters are missing!
+* Not Found! 404
+    * the API did not find a product with the requested id
 ### POST /product
-Store a product into the database
+Stores a product into the database
 #### Parameters:
 * Name (string)
 * Price (number)
@@ -38,5 +48,5 @@ Store a product into the database
     * your request was successfully accepted!
 * Forbidden! 403
     * a product with the same name already exists!
-* Unprocessable Entity
+* Unprocessable Entity! 422
     * one ore more parameters are missing!
