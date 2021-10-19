@@ -13,54 +13,62 @@ First you will need to have node installed on your computer.
 
 ## API Endpoints
 
-### GET /products
-Returns all the products of the store.
+### GET /products/page?
+Returns the store's products with a pagination of 10 items
 #### Parameters:
-* None
+* Page (optional)
 #### Responses:
 ##### Ok! 200
 Your request was successfully accepted.
+#### Not Found! 404
+The API did not find any product on this page.
+
 #### Response Example:
     {
     "products": [
         {
-        "id": 30,
-        "name": "ADIDAS T-SHIRT",
-        "price": 4.41,
-        "sizes": "P,M",
-        "inventory": 4,
-        "colors": "red,blue",
-        "slug": "ADIDAS-T-SHIRT",
-        "createdAt": "2021-10-18T21:47:05.000Z",
-        "updatedAt": "2021-10-18T21:47:05.000Z",
-        "categoryId": 1,
-        "brandId": 1
+            "id": 30,
+            "name": "ADIDAS T-SHIRT",
+            "price": 4.41,
+            "sizes": "P,M",
+            "inventory": 4,
+            "colors": "red,blue",
+            "slug": "ADIDAS-T-SHIRT",
+            "createdAt": "2021-10-18T21:47:05.000Z",
+            "updatedAt": "2021-10-18T21:47:05.000Z",
+            "categoryId": 1,
+            "brandId": 1
         },
         {
-        "id": 31,
-        "name": "NIKE T-SHIRT",
-        "price": 4.41,
-        "sizes": "P,M",
-        "inventory": 4,
-        "colors": "red,blue",
-        "slug": "NIKE-T-SHIRT",
-        "createdAt": "2021-10-18T21:47:08.000Z",
-        "updatedAt": "2021-10-18T21:47:08.000Z",
-        "categoryId": 1,
-        "brandId": 1
+            "id": 31,
+            "name": "NIKE T-SHIRT",
+            "price": 4.41,
+            "sizes": "P,M",
+            "inventory": 4,
+            "colors": "red,blue",
+            "slug": "NIKE-T-SHIRT",
+            "createdAt": "2021-10-18T21:47:08.000Z",
+            "updatedAt": "2021-10-18T21:47:08.000Z",
+            "categoryId": 1,
+            "brandId": 1
         }
     ],
     "_links": [
         {
-        "href": "http://localhost:8080/product",
-        "method": "POST",
-        "rel": "create_new_product"
+            "href": "http://localhost:8080/products/2",
+            "method": "GET",
+            "rel": "next_page"
+        },
+        {
+            "href": "http://localhost:8080/product",
+            "method": "POST",
+            "rel": "create_new_product"
         }
     ]
     }  
 
 
-### GET /product
+### GET /product/slug
 Returns the product with the requested slug.
 #### Parameters:
 * Slug: The slug of the Product.
@@ -89,29 +97,29 @@ The API did not find a product with the requested slug.
     },
     "_links": [
         {
-        "href": "http://localhost:8080/product/30",
-        "method": "DELETE",
-        "rel": "delete_product"
+            "href": "http://localhost:8080/product/30",
+            "method": "DELETE",
+            "rel": "delete_product"
         },
         {
-        "href": "http://localhost:8080/product",
-        "method": "POST",
-        "rel": "create_new_product"
+            "href": "http://localhost:8080/product",
+            "method": "POST",
+            "rel": "create_new_product"
         },
         {
-        "href": "http://localhost:8080/product/30",
-        "method": "PUT",
-        "rel": "update_product"
+            "href": "http://localhost:8080/product/30",
+            "method": "PUT",
+            "rel": "update_product"
         },
         {
-        "href": "http://localhost:8080/product/ADIDAS-T-SHIRT",
-        "method": "GET",
-        "rel": "get_product"
+            "href": "http://localhost:8080/product/ADIDAS-T-SHIRT",
+            "method": "GET",
+            "rel": "get_product"
         },
         {
-        "href": "http://localhost:8080/products",
-        "method": "GET",
-        "rel": "get_all_products"
+            "href": "http://localhost:8080/products",
+            "method": "GET",
+            "rel": "get_all_products"
         }
     ]
     }
@@ -130,6 +138,8 @@ Stores a product into the database.
 * Colors: A string with the avaliable colors, separated with comma.
 * CategoryID: The id of the Category.
 * BrandID: The id of the Brand.
+* Images: The API can handle multiple image files using a middleware.
+
 #### Request Example:
     {
         "name":"Air Force 1",
