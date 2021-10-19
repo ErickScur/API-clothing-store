@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const slugify = require('slugify');
 const Category = require('../models/Category');
+const Brand = require('../models/Brand');
 
 module.exports = {
     async index(req,res){
@@ -121,6 +122,14 @@ module.exports = {
                 res.status(403);
                 return res.json({err:"Product already exists"}); 
             }else{
+                let findCategory = await Category.findOne({where:{id:categoryId}});
+                if(!findCategory){
+                    return res.status(404).json({err:"Category not Found!"});
+                }
+                let findBrand = await Brand.findOne({where:{id:brandId}});
+                if(!findBrand){
+                    return res.status(404).json({err:"Brand not Found!"});
+                }
                 let slug = slugify(name);
                 colors = colors.toString(); //HTML Checkbox form outputs is a array so convert it into a String to store in the database
                 sizes = sizes.toString();   //HTML Checkbox form outputs is a array so convert it into a String to store in the database
