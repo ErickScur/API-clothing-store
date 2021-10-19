@@ -30,7 +30,7 @@ routes.put('/brand/:id', BrandController.update);
 routes.delete('/brand/:id', BrandController.destroy);
 
 //!Product
-routes.get('/products', ProductController.index);
+routes.get('/products/:page?', ProductController.index);
 routes.post('/product', ImageController.upload.array('files'), ProductController.store);
 routes.get('/product/:slug', ProductController.show);
 routes.delete('/product/:id', ProductController.destroy);

@@ -1,17 +1,74 @@
 const Product = require('../models/Product');
 const slugify = require('slugify');
+const Category = require('../models/Category');
 
 module.exports = {
     async index(req,res){
-        let products = await Product.findAll({raw:true});
-        let HATEOAS = [
-            {
-                href: "http://localhost:8080/product",
-                method: "POST",
-                rel: "create_new_product"
+        let page = req.params.page;
+        let offset=0;
+        if(page){
+            if(isNaN(page) || page == 1){
+                offset=0
+            }else{
+                offset = (parseInt(page)-1) * 10;
             }
-        ]
-        return res.status(200).json({products, _links:HATEOAS});
+        }
+        let products = await Product.findAndCountAll({
+            raw:true,
+            limit:10,
+            offset: offset
+        });
+        let HATEOAS;
+        if(offset==0){
+            HATEOAS = [
+                {
+                    href: "http://localhost:8080/products/"+ (parseInt(page)+1),
+                    method: "GET",
+                    rel: "next_page"
+                },
+                {
+                    href: "http://localhost:8080/product",
+                    method: "POST",
+                    rel: "create_new_product"
+                }
+            ]
+        }else if(products.count > offset){
+            HATEOAS = [
+                {
+                    href: "http://localhost:8080/products/"+ (parseInt(page)+1),
+                    method: "GET",
+                    rel: "next_page"
+                },
+                {
+                    href: "http://localhost:8080/products/"+ (parseInt(page)-1),
+                    method: "GET",
+                    rel: "previous_page"
+                },
+                {
+                    href: "http://localhost:8080/product",
+                    method: "POST",
+                    rel: "create_new_product"
+                }
+            ]
+        }else{
+            HATEOAS = [
+                {
+                    href: "http://localhost:8080/products/"+ (parseInt(page)-1),
+                    method: "GET",
+                    rel: "previous_page"
+                },
+                {
+                    href: "http://localhost:8080/product",
+                    method: "POST",
+                    rel: "create_new_product"
+                }
+            ]
+        }
+        if(products.rows.length > 0){
+            return res.status(200).json({products, _links:HATEOAS});
+        }else{
+            return res.status(404).json({err:"No products were found on this page"});
+        }
     },
     async show(req,res){
         let slug = req.params.slug
@@ -65,8 +122,8 @@ module.exports = {
                 return res.json({err:"Product already exists"}); 
             }else{
                 let slug = slugify(name);
-                colors = colors.toString(); //HTML Checkbox form outputs is a array so I convert it into a String to store in the database
-                sizes = sizes.toString();   //HTML Checkbox form outputs is a array so I convert it into a String to store in the database
+                colors = colors.toString(); //HTML Checkbox form outputs is a array so convert it into a String to store in the database
+                sizes = sizes.toString();   //HTML Checkbox form outputs is a array so convert it into a String to store in the database
                 let product = await Product.create({name,price,sizes,inventory,colors,categoryId,brandId,slug});
                 let HATEOAS = [
                     {
