@@ -200,10 +200,27 @@ module.exports = {
         }
     },
     async findBySlug(slug){
-        console.log('chamou');
-        console.log(slug);
         let product = await Product.findOne({where:{slug:slug}});
-        console.log(product);
         return product;
+    },
+    async getProductsCategory(req,res){
+        const slug = req.params.slug.toUpperCase();
+        if(slug){
+            const category = await Category.findOne({where:{slug:slug}});
+            if(category){
+                const categoryId = category.id;
+                const products = await Product.findAll({where:{categoryId}});
+                if(products.length > 0){
+                    return res.status(200).json(products);
+                }else{
+                    return res.status(404).json({err:"No products were found!"});
+                }
+            }else{
+                return res.status(404).json({err:"Category not found!"});
+            }
+        }else{
+            res.status(422);
+            return res.json({err:"One or more parameters are missing!"});
+        }
     }
 }

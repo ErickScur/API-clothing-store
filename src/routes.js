@@ -35,7 +35,7 @@ routes.post('/product', ImageController.upload.array('files'), ProductController
 routes.get('/product/:slug', ProductController.show);
 routes.delete('/product/:id', ProductController.destroy);
 routes.put('/product/:id', ProductController.update);
-
+routes.get('/products/category/:slug',ProductController.getProductsCategory);
 //!Images
 routes.get('/images/:productId', ImageController.getImages);
 
